@@ -24,12 +24,19 @@ public class MainController {
     protected void calculate() {
 
         String equation = equationText.getText();
-        String x1 = x1Field.getText();
-        String x2 = x2Field.getText();
-        if (equation.isBlank() || x1.isBlank() || x2.isBlank() || !isNumeric(x1) || !isNumeric(x2)) {
+        String x1String = x1Field.getText();
+        String x2String = x2Field.getText();
+        if (equation.isBlank() || x1String.isBlank() || x2String.isBlank() || !isNumeric(x1String) || !isNumeric(x2String)) {
             showError("U need to enter all data Correctly");
+            return;
         }
-        if (!canvasContext.draw(equation, Integer.parseInt(x1), Integer.parseInt(x2)))
+        var x1 = Integer.parseInt(x1String);
+        var x2 = Integer.parseInt(x2String);
+        if (x1 >= x2) {
+            showError("X1 should  be smaller than X2");
+            return;
+        }
+        if (!canvasContext.draw(equation, x1, x2))
             showError("Invalid Equation! Please check it and try again");
     }
 
